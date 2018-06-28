@@ -5,9 +5,11 @@ Instance of flask framework
 """
 from flask import Flask, request, make_response, render_template
 from flask_bootstrap import Bootstrap
+from flask_moment import Moment
 
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
+moment = Moment(app)
 
 
 @app.errorhandler(404)
@@ -20,6 +22,7 @@ def page_not_found(e):
 def internal_server_error(e):
     ''' new page for internal server error '''
     return render_template('500.html'), 500
+
 
 @app.route('/cookie')
 def cookie():

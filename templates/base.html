@@ -1,6 +1,6 @@
-{% extends 'bootstrap/base.html' %}
+{% extends "bootstrap/base.html" %}
 
-{% block title %}Flasky!{% endblock %}
+{% block title %}Flasky{% endblock %}
 
 {% block navbar %}
 <div class="navbar navbar-inverse" role="navigation">
@@ -25,6 +25,6 @@
 
 {% block content %}
 <div class="container">
-    {% page_content %} {% endblock %}
+    {% block page_content %}{% endblock %}
 </div>
 {% endblock %}

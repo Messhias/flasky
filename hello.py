@@ -3,7 +3,7 @@ Intializing application
 
 Instance of flask framework
 """
-from flask import Flask, make_response, render_template, redirect, session, url_for
+from flask import Flask, make_response, render_template, redirect, session, url_for, flash
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from datetime import datetime
@@ -54,12 +54,13 @@ def _404():
 @app.route('/', methods=['POST', 'GET'])
 def index():
     """ Home page """
-    name = None
     form = NameForm()
     if form.validate_on_submit():
+        old_name = session.get('name')
+        if old_name is not None and old_name != form.name.data:
+            flash('Looks like you have changed your name, don\'t you?')
         session['name'] = form.name.data
-        redirect(url_for('index'))
-    form.name.data = ''
+        return redirect(url_for('index'))
     return render_template('index.html', current_time = datetime.utcnow(), name = session.get('name'), form = form)
 
 

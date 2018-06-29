@@ -51,10 +51,13 @@ def _404():
     return '<h1>Not foound, returning a 404 error page</h1>', 404
 
 
-@app.route('/')
+@app.route('/', methods=['POST', 'GET'])
 def index():
     """ Home page """
-    return render_template('index.html', current_time=datetime.utcnow())
+    name = None
+    form = NameForm()
+    form.name.data = ''
+    return render_template('index.html', current_time=datetime.utcnow(), name=name, form=form)
 
 
 @app.route('/user/<name>')

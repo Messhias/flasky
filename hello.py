@@ -3,7 +3,7 @@ Intializing application
 
 Instance of flask framework
 """
-from flask import Flask, make_response, render_template
+from flask import Flask, make_response, render_template, redirect, session, url_for
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from datetime import datetime
@@ -57,10 +57,10 @@ def index():
     name = None
     form = NameForm()
     if form.validate_on_submit():
-        name = form.name.data
-        form.name.data = ''
+        session['name'] = form.name.data
+        redirect(url_for('index'))
     form.name.data = ''
-    return render_template('index.html', current_time=datetime.utcnow(), name=name, form=form)
+    return render_template('index.html', current_time = datetime.utcnow(), name = session.get('name'), form = form)
 
 
 @app.route('/user/<name>')

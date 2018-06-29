@@ -3,15 +3,23 @@ Intializing application
 
 Instance of flask framework
 """
-from flask import Flask, request, make_response, render_template
+from flask import Flask, make_response, render_template
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from datetime import datetime
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'My SECRET_KEY'
 bootstrap = Bootstrap(app)
 moment = Moment(app)
+
+
+class NameForm(FlaskForm):
+    name = StringField('What\'s your name?', validators=[DataRequired()])
+    submit = SubmitField('Submit')
 
 
 @app.errorhandler(404)

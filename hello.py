@@ -8,7 +8,7 @@ Instance of flask framework
 import os
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, make_response, render_template, redirect, session, url_for, flash
-
+from flask_migrate import Migrate
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from datetime import datetime
@@ -30,6 +30,8 @@ db = SQLAlchemy(app)
 app.config['SECRET_KEY'] = 'My SECRET_KEY'
 bootstrap = Bootstrap(app)
 moment = Moment(app)
+
+migrate = Migrate(app, db)
 
 # define models
 class Role(db.Model):

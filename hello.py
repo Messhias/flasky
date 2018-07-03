@@ -111,3 +111,9 @@ def index():
 def user(name):
     """ Greetings user page """
     return render_template('user.html', name=name)
+
+
+# Function to intialize the shell processor contexts
+@app.shell_context_processor
+def make_shell_context():
+    return dict(db=db, User=User, Role=Role)

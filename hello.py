@@ -7,8 +7,7 @@ Instance of flask framework
 # chapter 5 - DATABASES
 import os
 from flask_sqlalchemy import SQLAlchemy
-from flask import Flask, make_response,
-render_template, redirect, session, url_for, flash
+from flask import Flask, make_response, render_template, redirect, session, url_for, flash
 
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
@@ -17,7 +16,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 
 # get absolute path of project directory
-basedir = os.path.asbpath(os.path.dirname(__file__))
+basedir = os.path.abspath(os.path.dirname(__file__))
 
 from wtforms.validators import DataRequired
 
@@ -43,7 +42,7 @@ class Role(db.Model):
         return '<Role %r>' % self.name
 
 
-class User(dbs.Model):
+class User(db.Model):
     """(User description)"""
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)

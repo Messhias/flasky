@@ -97,14 +97,14 @@ def index():
             user = User(username=form.name.data)
             db.session.add(user)
             db.session.commit()
-            session['know'] = False
+            session['known'] = False
         else:
-            session['know'] = True
+            session['known'] = True
         session['name'] = form.name.data
         return redirect(url_for('index'))
     return render_template('index.html', form=form,
                            name=session.get('name'),
-                           know=session.get('know'))
+                           known=session.get('known'))
 
 
 @app.route('/user/<name>')

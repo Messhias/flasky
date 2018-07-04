@@ -12,22 +12,30 @@ First you need create a new venv using PYTHON3.
 
 So make sure that you have python 3 installed on your computer.
 
-'''
+```
 python3 -m venv venv
 source venv/bin/active
-'''
+```
 
 After that you need install all the dependencies and third party libraries that in requirements.txt
 
-'''
+```
 pip install -r requirements.txt
-'''
+```
+
+Don't forget to set up the e-mail environment.
+
+```
+EXPORT MAIL_USERNAME=<your user name of gmail>
+EXPORT MAIL_PASSWORD=<YOUR GMAIL PASS>
+```
+
 
 # Running migrations
 
-'''
+```
 flask db migrate
-'''
+```
 
 # Running Application
 
@@ -35,12 +43,12 @@ First you must say where's the initial file endpoint of the application, in this
 
 So you need export the default application to flask environment.
 
-'''
+```
 EXPORT FLAS_APP=hello.py
-'''
+```
 
 And running the application
 
-'''
+```
 flask run
-''''
+```'

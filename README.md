@@ -26,8 +26,8 @@ pip install -r requirements.txt
 Don't forget to set up the e-mail environment.
 
 ```
-EXPORT MAIL_USERNAME=<your user name of gmail>
-EXPORT MAIL_PASSWORD=<YOUR GMAIL PASS>
+EXPORT MAIL_USERNAME=<your email>
+EXPORT MAIL_PASSWORD=<your password>
 ```
 
 

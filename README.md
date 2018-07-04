@@ -26,8 +26,8 @@ pip install -r requirements.txt
 Don't forget to set up the e-mail environment.
 
 ```
-EXPORT MAIL_USERNAME=<your email>
-EXPORT MAIL_PASSWORD=<your password>
+export MAIL_USERNAME=<your email>
+export MAIL_PASSWORD=<your password>
 ```
 
 
@@ -44,7 +44,7 @@ First you must say where's the initial file endpoint of the application, in this
 So you need export the default application to flask environment.
 
 ```
-EXPORT FLAS_APP=hello.py
+export FLAS_APP=hello.py
 ```
 
 And running the application

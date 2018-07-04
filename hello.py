@@ -6,7 +6,7 @@ Instance of flask framework
 
 # chapter 5 - DATABASES
 import os
-from flask_mail import Mail
+from flask_mail import Mail, Message
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, make_response, render_template, redirect, session, url_for, flash
 from flask_migrate import Migrate
@@ -15,6 +15,7 @@ from flask_moment import Moment
 from datetime import datetime
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
+from threading import Thread
 
 # get absolute path of project directory
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -26,11 +27,14 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 
+app.config['FLASKY_MAIL_SUBJECT_PREFIX'] = '[FLASKY]'
+app.config['FLASKY_MAIL_SENDER'] = 'Flasky Admin <messhias@gmail.com>'
 app.config['MAIL_SERVER'] = 'in-v3.mailjet.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
+app.config['FLASKY_ADMIN'] = os.environ.get('FLASKY_ADMIN')
 
 db = SQLAlchemy(app)
 
@@ -112,6 +116,11 @@ def index():
             db.session.add(user)
             db.session.commit()
             session['known'] = False
+            if app.config['FLASKY_ADMIN']:
+                send_email(app.config['FLASKY_ADMIN'],
+                           'New user',
+                           'mail/new_user',
+                           user=user)
         else:
             session['known'] = True
         session['name'] = form.name.data
@@ -131,3 +140,18 @@ def user(name):
 @app.shell_context_processor
 def make_shell_context():
     return dict(db=db, User=User, Role=Role)
+
+
+def send_ansyc_email(app, msg):
+    with app.app_context():
+        mail.send(msg)
+
+
+def send_email(to, subject, template, **kwargs):
+    msg = Message(app.config['FLASKY_MAIL_SUBJECT_PREFIX'] + subject,
+                  sender=app.config['FLASKY_MAIL_SENDER'], recipients=[to])
+    msg.body = render_template(template + '.txt', **kwargs)
+    msg.html = render_template(template + '.html', **kwargs)
+    thr = Thread(target=send_ansyc_email, args=[app, msg])
+    thr.start()
+    return thr

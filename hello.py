@@ -119,7 +119,7 @@ def index():
             if app.config['FLASKY_ADMIN']:
                 send_email(app.config['FLASKY_ADMIN'],
                            'New user',
-                           'mail/new_user',
+                           'user',
                            user=user)
         else:
             session['known'] = True

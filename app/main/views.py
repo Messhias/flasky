@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import render_template, session, reidrec, url_for
+from flask import render_template, session, reidrect, url_for
 from . import main
 from .forms import NameForm
 from .. import db

@@ -25,7 +25,8 @@ from wtforms.validators import DataRequired
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+app.config['SQLALCHEMY_DATABASE_URI'] = \
+    'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 
 app.config['FLASKY_MAIL_SUBJECT_PREFIX'] = '[FLASKY]'
 app.config['FLASKY_MAIL_SENDER'] = 'Flasky Admin <messhias@gmail.com>'
@@ -103,7 +104,6 @@ def cookie():
 def _404():
     """ 404 PAGE """
     return '<h1>Not foound, returning a 404 error page</h1>', 404
-
 
 
 @app.route('/user/<name>')

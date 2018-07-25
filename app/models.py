@@ -1,7 +1,7 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask import current_app
-from flask_login import UserMixin, AnonnymousUserMixin
+from flask_login import UserMixin, AnonymousUserMixin
 from . import db, login_manager
 
 
@@ -138,7 +138,7 @@ class User(UserMixin, db.Model):
         return self.can(Permission.ADMIN)
 
 
-class AnonnymousUser(AnonnymousUserMixin):
+class AnonnymousUser(AnonymousUserMixin):
     """docstring for AnonnymousUser."""
     def can(self, permissions):
         return False
